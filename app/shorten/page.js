@@ -8,7 +8,7 @@ const Shorten = () => {
     const [url, setUrl] = useState("");
     const [shortenedUrl, setShortenedUrl] = useState("");
     const [generated, setGenerated] = useState("");
-    const [requiredUrl, setrequiredUrl] = useState("");
+    const [requiredUrl, setRequiredUrl] = useState("");
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,17 +23,17 @@ const Shorten = () => {
         console.log("Response Data:", data);
         if (data.error) {
             setGenerated("");
-            setrequiredUrl("");
+            setRequiredUrl("");
             toast.error(data.message);
             return;
         }
         if(data.shortenedUrl){
         setGenerated(`${process.env.NEXT_PUBLIC_URL}/${data.shortenedUrl}`);
-        setrequiredUrl(`https://www.smi.to/${data.shortenedUrl}`);
+        setRequiredUrl(`https://www.smi.to/${data.shortenedUrl}`);
         toast.success(data.message);}
         else{
         setGenerated("");
-        setrequiredUrl("");
+        setRequiredUrl("");
         toast.error(data.message);}
         setUrl("");
         setShortenedUrl("");
@@ -51,13 +51,15 @@ const Shorten = () => {
                     {generated}
                 </Link>
                 </code>
-                <p className="text-lg font-bold my-2">Required URL:</p>
-                <small className="text-red-500">Note: This URL will not work. This is done because of the requirment for base url</small>
+                <p className="text-lg font-bold my-2">Required URL:
+                </p>
                 <code><Link
                 href={requiredUrl} target="_blank" rel="noopener noreferrer">
                     {requiredUrl}
                 </Link>
                 </code>
+                <p><small className="text-red-500">Note: This URL will not work. This is done because of the requirment for base url</small>
+                </p>
                 </div>
             )}
             <input
